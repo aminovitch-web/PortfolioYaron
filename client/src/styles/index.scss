@@ -1,0 +1,85 @@
+@use "@/styles/variables" as *;
+@use "./components/header";
+@use "./components/hero";
+@import "normalize.css";
+
+/* ==========================================
+   BASE GLOBALE DU SITE
+========================================== */
+
+html {
+  font-size: 100%; // base 16px
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: #f2f2f2;
+
+  background: linear-gradient(
+    120deg,
+    #0c0c12 0%,
+    #161623 35%,
+    #1e2030 70%,
+    #292b40 100%
+  );
+  background-size: 300% 300%;
+  animation: bgMove 30s ease-in-out infinite alternate;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* ----- ANIMATION CONTINUE DU BACKGROUND ----- */
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==========================================
+   CORRECTION MAJEURE
+   On applique un container à toutes les sections...
+   ...SAUF la section hero (qui doit être full-width)
+========================================== */
+
+section:not(.hero) {
+  padding-block: $space-xl;
+  @include container;
+}
+
+/* ==========================================
+   TYPOGRAPHIE
+========================================== */
+
+h1 { @include heading(1); color: $color-primary; }
+h2 { @include heading(2); color: $color-primary; }
+h3 { @include heading(3); color: $color-secondary; }
+
+/* ==========================================
+   LIENS
+========================================== */
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: $transition-fast;
+
+  &:hover {
+    text-decoration: underline;
+    color: $color-secondary;
+  }
+}
+
+/* ==========================================
+   IMAGES
+========================================== */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: $radius;
+}
