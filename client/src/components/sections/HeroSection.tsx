@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { motion, useAnimationControls } from "framer-motion"
-import Waves from "@/components/effects/Waves"
+import type { Variants } from "framer-motion"
 import paysage from "@/assets/paysage.jpg"
 
 export default function HeroSection() {
@@ -17,7 +17,7 @@ export default function HeroSection() {
         repeat: Infinity
       }
     })
-  }, [])
+  }, [bgControls])
 
   useEffect(() => {
     const el = bgRef.current
@@ -27,7 +27,6 @@ export default function HeroSection() {
       const rect = el.getBoundingClientRect()
       const dx = (e.clientX - (rect.left + rect.width / 2)) / rect.width
       const dy = (e.clientY - (rect.top + rect.height / 2)) / rect.height
-
       el.style.setProperty("--px", `${dx * 4}px`)
       el.style.setProperty("--py", `${dy * 2}px`)
     }
@@ -38,7 +37,7 @@ export default function HeroSection() {
 
   const words = ["Subtil.", "Authentique.", "Professionnel."]
 
-  const wordVariant = {
+  const wordVariant: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
       opacity: 1,
@@ -46,14 +45,13 @@ export default function HeroSection() {
       transition: {
         delay: 0.45 + i * 0.22,
         duration: 0.8,
-        ease: "easeOut"
+        ease: [0.25, 0.1, 0.25, 1]
       }
     })
   }
 
   return (
     <section className="hero hero--full">
-
       <motion.div
         className="hero__bg"
         ref={bgRef}
@@ -65,18 +63,16 @@ export default function HeroSection() {
           src={paysage}
           alt="Photographie artistique en noir et blanc"
         />
-        
       </motion.div>
 
       <div className="hero__content hero__content--overlay">
-
         <motion.h1
           className="hero__title"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 1.2 }}
         >
-          <span className="accent">Capturer l’instant.</span>
+          <span className="accent">Capturer l'instant.</span>
         </motion.h1>
 
         <div className="hero__title hero__title--stack">
@@ -112,7 +108,6 @@ export default function HeroSection() {
           <a className="btn btn--primary" href="/realisations">Voir mes réalisations</a>
           <a className="btn btn--ghost" href="/contact">Me contacter</a>
         </motion.div>
-
       </div>
     </section>
   )
